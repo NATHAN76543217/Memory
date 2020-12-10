@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -107,3 +108,7 @@ Password-hash est un module permettant de hasher facilement des mots passes (et 
 # JWT-simple
 JWT-simple permet de générer des JSON Web Tokens (JWT) qui permettent par exemple d’authentifier un utilisateur lors d’une requête grâce à un système d’échange de jetons et de vérification d’identité 
 
+=======
+# Memory
+First projet React/Node.js
+>>>>>>> 5e10458c83bd404a2399b8ed01706537a0cbf792
