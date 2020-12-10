@@ -1,0 +1,46 @@
+div
+{
+  margin: 0;
+  padding: 0;
+
+  position: relative;
+
+}
+.game_field
+{
+  display:flex;
+  flex-flow: row wrap;
+  max-height: 100vh;
+}
+
+.board
+{
+  margin-top: 3%;
+  margin-left: 5%;
+  width: 70vh;
+  max-width: 60%;
+  max-height: 20vh;
+
+}
+.loose
+{
+  max-width: 500px;
+  margin: auto
+}
+@media (max-width: 500px)
+{
+  .game_field
+  {
+    display:flex;
+    flex-flow: column wrap;
+    max-height: 100vh;
+  }
+  .board
+  {
+    height: fit-content;
+    width: fit-content;
+    max-width: none;
+    max-height: none;
+    min-width: 10%;
+  }
+}

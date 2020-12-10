@@ -1,0 +1,64 @@
+.menu
+{
+    background-color: rgb(131, 32, 32);
+    max-width: 60%;
+    margin: auto;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    padding: 2%;
+    border-radius: 4em;
+}
+.menu .intern
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 4em;
+
+    padding-bottom: 1em;
+
+    background-color: rgb(218, 218, 218);
+
+}
+.menu .intern > h2
+{
+    margin: auto;
+    width: fit-content;
+    font-size: 3em;
+
+    margin-bottom: 5%;
+    margin-top: 5%;
+
+}
+.menu .intern > * {
+    margin: auto;
+
+    margin-top: 5%;
+
+
+}
+
+.menu .intern div.content 
+{
+    
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 5%;
+
+
+}
+.menu fieldset
+{
+    max-width: 11em;
+    min-width: 1em;
+}.menu legend
+{
+    font-size: medium;
+}
+.menu .content .scores
+{
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+}

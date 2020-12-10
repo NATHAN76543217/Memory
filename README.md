@@ -68,3 +68,42 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Package.json
+
+Contient les informations relatives au dépendances d'un projet nodeJS ainsi que sa description et peut aussi contenir quelques alias de scripts.
+Télécharger et installer les dépendences avec `npm install`
+
+### Schema
+    Contient les schémas pour mongoDB.
+
+### Config
+    Contient les fichiers de config
+
+### Frameworks
+
+# nodemon
+Permet de tester les modification du server en temps réel sans avoir à relancer manuellement le serveur.
+
+# express
+Express est un framework aidant à gérer les routes et les middlewares de notre serveur.
+Express.use(func): définit un middleWare.
+
+# Axios
+Axios permet de génerer des requetes HTTP.
+Recuperer data from:
+GET: req.query
+PUT/POST: req.body
+
+# Body-parser
+Body-parser permet de récupérer facilement les données envoyées sur nos routes notamment lors de l’envoi d’un formulaire.
+
+# Mongoose
+Mongoose est un module facilitant les interactions entre notre base de donnée mongo et notre serveur.
+
+# Password-hash
+Password-hash est un module permettant de hasher facilement des mots passes (et éviter d’écrire un mot de passe en clair dans la base de donnée : RGPD Attention !!).
+
+# JWT-simple
+JWT-simple permet de générer des JSON Web Tokens (JWT) qui permettent par exemple d’authentifier un utilisateur lors d’une requête grâce à un système d’échange de jetons et de vérification d’identité 
+

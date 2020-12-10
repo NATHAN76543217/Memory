@@ -1,0 +1,20 @@
+.Account
+{
+    margin: auto;
+    margin-bottom: 5%;
+    max-width: 500px;
+    color: rgb(157, 235, 255);
+    text-shadow: 4px 4px 2px blue ;
+    font-variant: small-caps;
+}
+.form-control
+{
+    font-variant: normal;
+}
+.error
+{
+    color:red;
+    font-size: large;
+    font-weight: bold;
+    text-shadow: 0px 1px black;
+}

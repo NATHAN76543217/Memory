@@ -1,0 +1,58 @@
+.scores
+{
+    text-align: center;
+}
+.scores > div > ul
+{
+    display: flex;
+    flex-direction: row;
+    padding: initial;
+    margin: 0;
+    width: 100%;
+}
+/* onglet Tab */
+.scores  ul > li 
+{
+    display: flex;
+    flex-direction: row;
+    padding: 0.3em;
+    padding-left: 0.5em;
+    padding-right: 1em;
+    width: auto;
+    border: 3px ridge rgb(61, 61, 151);
+    border-top-left-radius: 0.4em;
+    border-top-right-radius: 0.4em;
+    background-color: rgb(132, 135, 131);
+}
+.scores  ul > li.active
+{
+    background-color: rgb(91, 101, 139);
+}
+/*border*/
+.scores div > div
+{
+    width: 100%;
+
+    background-color: rgb(199, 193, 193);
+    border: 3px ridge rgb(61, 61, 151) ;
+    border-top: 1px ridge rgb(61, 61, 151);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0.5em;
+}
+
+.scores  ul > li a
+{
+    color: rgb(253, 253, 253);
+
+}
+.scores  ul > li a:hover
+{
+    text-decoration: none;
+}
+/* onglet content */
+.scores div div li
+{
+    white-space: pre;
+    margin: 0.1em;
+}

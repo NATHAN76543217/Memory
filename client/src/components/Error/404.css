@@ -1,0 +1,13 @@
+.notFound
+{
+    width: fit-content;
+    margin: auto;
+    margin-top: 3em;
+    text-align: center;
+    background-color: rgba(128, 128, 128, 0.7);
+    padding: 2em;
+}
+h2.error
+{
+    font-size: xx-large;
+}

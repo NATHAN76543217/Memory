@@ -1,0 +1,20 @@
+.not_yet
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Login
+{
+    margin: auto;
+}
+
+
+.not_yet span
+{
+    font-size: large;
+    margin-top: 30px;
+    color: whitesmoke;
+    text-shadow: 1px 1px 3px black;
+}
