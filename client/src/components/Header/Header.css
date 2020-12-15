@@ -30,6 +30,11 @@ header a:hover
 	outline: none;
 	text-shadow: 1px 1px 3px rgb(39, 77, 158);
 }
+header a:focus
+{
+	text-decoration: none;
+	outline: none;
+}
 header > div
 {
 	width: 100%;
