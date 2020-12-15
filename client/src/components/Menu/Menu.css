@@ -24,18 +24,15 @@
 {
     margin: auto;
     width: fit-content;
-    font-size: 3em;
+    font-size: clamp(13px, 5vw, 55px);
 
-    margin-bottom: 5%;
-    margin-top: 5%;
+    margin-bottom: 3%;
+    margin-top: clamp(10px, 3%, 20px);
 
 }
 .menu .intern > * {
     margin: auto;
-
     margin-top: 5%;
-
-
 }
 
 .menu .intern div.content 
@@ -45,14 +42,20 @@
     justify-content: space-evenly;
     margin: 0;
     padding: 5%;
+    padding-top: 0;
+    padding-bottom: 0;
 
 
 }
+/*radio*/
 .menu fieldset
 {
+    padding: 4%;
+    padding-left: 6%;
     max-width: 11em;
     min-width: 1em;
-}.menu legend
+}
+.menu legend
 {
     font-size: medium;
 }
@@ -60,5 +63,32 @@
 {
     display: flex;
     flex-direction: column;
+    margin-right: 5%;
+    margin-left: 5%;
     max-width: 50%;
+}
+@media screen and (max-width: 650px)
+{
+    .menu .content 
+    {
+        flex-direction: column;
+    }
+    .menu .content .scores
+    {
+        width: auto;
+        max-width: none;
+    }
+    .menu legend
+    {
+        margin-bottom: 0;
+    }
+    .menu fieldset
+    {
+        width: 100%;
+        max-width: none;
+    }
+    .menu button
+    {
+        padding: clamp(3px, 3vw, 15px);
+    }
 }

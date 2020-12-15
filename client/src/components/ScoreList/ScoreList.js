@@ -1,4 +1,4 @@
-import {List, ListItem, ListItemText} from '@material-ui/core'
+import {ListItem, ListItemText} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import React from 'react';
 import Tab from "./Tab.js";
@@ -30,10 +30,21 @@ function ScoreList({user_scores, scope, global_scores})
 			if (selected === "World")
 				k = Object.keys(scores[i]);
 			scoreItems.push(
-				<Item>
-					{selected === "User" ? <ListItemText primary= {(i+1) + "-\t\t" + scores[i]}/>
-					: <ListItemText primary={(i+1 + " - " + k + "\t" + scores[i][k])}/>}
+
+				<Item key={i}>
+					{selected === "User" ? <ListItemText primary= {
+						<p>
+							<span>{i + 1} - </span>
+							<span>{scores[i]}</span>
+						</p>}/>
+					: <ListItemText  primary={<p>
+						<span>{i+1} - </span>
+						<span>{k}</span>
+						<span>{scores[i][k]}</span>
+						</p>}
+					/>}
 				</Item>
+
 			);
 		}
 		console.log("items");
@@ -45,16 +56,24 @@ function ScoreList({user_scores, scope, global_scores})
 	return(
 		<React.Fragment>			
 		{"Best Scores"}
-		<TabNav tabs={['User', 'World']} selected={ selected } setSelected={setSelected }>
-		  <Tab isSelected={ selected === 'User'}>
-				{scoreItems}
-		  </Tab>
-		  <Tab isSelected={ selected === 'World' }>
-			<List>
-				{scoreItems}
-			</List>
-		  </Tab>
-		</TabNav>
+			<TabNav tabs={['User', 'World']} selected={ selected } setSelected={setSelected }>
+				<Tab isSelected={ selected === 'User'}>
+					<p className="subtitles">
+						<span>Rank</span>
+						<span>Time (s)</span>	
+						</p>
+						{scoreItems}
+				</Tab>
+				<Tab isSelected={ selected === 'World' }>
+				<p className="subtitles">
+						<span>Rank</span>
+						<span>Username</span>
+						<span>Time (s)</span>	
+						</p>
+						{scoreItems}
+				</Tab>
+			</TabNav>
+
 		</React.Fragment>
 	)
 }

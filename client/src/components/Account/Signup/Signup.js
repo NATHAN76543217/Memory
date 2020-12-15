@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import API from "../../../utils/API";
 import "./Signup.css";
 import "../Account.css"
@@ -45,9 +45,9 @@ class Signup extends React.Component {
 	return (
 	  <div className="Account Signup">
 			<h2>Signup</h2>
-			<span class="error">{this.state.error_msg}</span>
-			<FormGroup controlId="name" bsSize="large">
-				<ControlLabel>Name</ControlLabel>
+			<span className="error">{this.state.error_msg}</span>
+			<FormGroup controlId="name" bssize="large">
+				<FormLabel>Name</FormLabel>
 				<FormControl
 					autoFocus
 					type="name"
@@ -55,23 +55,23 @@ class Signup extends React.Component {
 					onChange={this.handleChange}
 		  		/>
 			</FormGroup>
-			<FormGroup controlId="password" bsSize="large">
-				<ControlLabel>Password</ControlLabel>
+			<FormGroup controlId="password" bssize="large">
+				<FormLabel>Password</FormLabel>
 				<FormControl
 					value={password}
 					onChange={this.handleChange}
 					type="password"
 				/>
 				</FormGroup>
-				<FormGroup controlId="cpassword" bsSize="large">
-				<ControlLabel>Confirm Password</ControlLabel>
+				<FormGroup controlId="cpassword" bssize="large">
+				<FormLabel>Confirm Password</FormLabel>
 				<FormControl
 					value={cpassword}
 					onChange={this.handleChange}
 					type="password"
 				/>
 			</FormGroup>
-			<Button className="btn-primary" onClick={this.send} block bsSize="large" type="submit">
+			<Button className="btn-primary" onClick={this.send} block bssize="large" type="submit">
 				Inscription
 			</Button>
 	  </div>

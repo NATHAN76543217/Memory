@@ -9,12 +9,10 @@ class TabNav extends React.Component {
 			<ul>
 			{
 				this.props.tabs.map(tab => {
-					const active = (tab === this.props.selected ? 'active ' : '' );
+					const active = (tab === this.props.selected ? 'active' : '' );
 					return (
-						<li key={ tab } className={active}>
-							<a onClick={ () => this.props.setSelected(tab) }>
+						<li key={ active==='active' ? + 1 : + 0 } className={active} onClick={() => this.props.setSelected(tab)}>
 								{ tab }
-							</a>
 						</li>);
 				})
 			}

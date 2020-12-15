@@ -14,7 +14,7 @@ function FormRow({start, row_size, donne, onClick}) {
     var row = [];
     for (let i = start; i < start + row_size; i++)
     {
-	  row.push(<DispCase fruit={donne[i]} onClick={onClick} />)
+	  row.push(<DispCase key={i} fruit={donne[i]} onClick={onClick} />)
     }
 	return (
 		<Grid container item xs="auto" spacing={2} direction='row'>
@@ -33,10 +33,11 @@ function Board({donne, onClick})
 { 
 
 //--------------------------
-	const col_size = Math.round(Math.sqrt(donne.length));
+	const col_size = Math.ceil(Math.sqrt(donne.length));
 	const line_size = Math.round(Math.sqrt(donne.length));
 	const grid = [];
 	let i = 0;
+
 	for (; i < col_size - 1; i++)//0 1
 	{
 		grid.push(<FormRow key={i} donne={donne} start={i * line_size} row_size={line_size} onClick={onClick}/>);

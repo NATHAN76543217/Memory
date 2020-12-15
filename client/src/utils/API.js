@@ -18,7 +18,7 @@ function signup(send) {
 }
 
 function isAuth() {
-	const token = localStorage.getItem("token");
+	const token = getToken();
 	if (token == null)
 		return false;
 	console.log("token founded");
@@ -45,8 +45,12 @@ function getToken() {
 }
 function updateToken()
 {
+	console.log("UPDATE TOKEN");
 	return axios.put(`${burl}/updateToken`, {token:getToken()}, {headers:headers})
-	.then((res)=> console.log(res.data) && localStorage.setItem("token", res.data.token))
+	.then((res)=> {
+		console.log(res);
+		localStorage.setItem("token", res.data.token);
+	})
 	.catch(error=> {
 		if (error.response && error.response.status === 408)
 		{
@@ -78,7 +82,7 @@ function sendScore(nb_card, result, time_elapsed)
 	localStorage.setItem("last", result);
 	console.log("set result to:" + result);
 	window.location = "/endgame"
-	return axios.put(`${burl}/result`, {token: this.getToken(), result: result, score: time_elapsed, nb_card: nb_card}, {headers: headers})
+	return axios.put(`${burl}/result`, {token: this.getToken(), result: result, score: time_elapsed, nb_card: nb_card}, {headers: headers}).catch(error => console.error(error))
 }
 function getScores(scope, nb_card)
 {

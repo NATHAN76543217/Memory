@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button'
+import React from 'react';
 import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import API from '../../utils/API';
@@ -13,38 +14,53 @@ async function getUser(setUser)
 
 function End()
 {
-    const [user, setUser] = useState(null);
-	const [scores_list, setScoresList] = useState(["-1"]);
-
+    //localstorage
     const nb_card   = localStorage.getItem("nb_pair");
     const res       = localStorage.getItem("last");
+    const time_elapsed = localStorage.getItem("time_elapsed");
+    const pair_left = localStorage.getItem("pair_left");
+    
+    //Hooks
+    const [user, setUser] = useState(null);
+	const [user_scores, setUserScores] = useState(["-1"]);
+	const [global_scores, setGlobalScores] = useState(["-1"]);
+    //effect
     useEffect(() => {
 		async function getScores() {
-			const scores = await API.getScores("user", nb_card);
-			setScoresList(scores);
-		}
-		getScores();
-     }, []);
+            try {
+                const scores = await API.getScores("user", nb_card);
+                setUserScores(scores.user);
+                setGlobalScores(scores.global);                
+            } catch ({error}) {
+                console.error(error);
+            }
+        }
+        getScores();
+     }, [nb_card]);
     (!user && getUser(setUser));
-    console.log(user);
-    //  const user = getUser();
+    
+    //render
     return (
-		<div class="end">
-            <div class="inner">
+		<div className="end">
+            <div className="inner">
                 <h1>{(res === "win" ? "You Win!" : "You loose..." )}</h1>
                 {user && <span>V {user.victories} | {user.defeats} D</span>}
-                {res === "win" && <span>You flipped all the {nb_card} pairs!</span>}
-                {res === "loose" && <span>You have {localStorage.getItem("pair_left")} pairs left :(</span>}
-                <div class="content">
+                {res === "win" &&
+                    <React.Fragment>
+                        <span>You flipped all the {nb_card} pairs!</span>
+                        <span>in {time_elapsed} seconds</span>
+                    </React.Fragment>}
+                {res === "loose" && <span>You have {pair_left} pairs left :(</span>}
+                <div className="content">
                     <Link to={{
                     pathname: "/game",
                     data: nb_card, }}>
-                        <Button color="primary" variant="contained" block>Retry?</Button>
+                        <Button color="primary" variant="contained">Retry?</Button>
                     </Link>
-                    <div class="scores">
-                        <ScoreList scores={scores_list}/>
+                    <div className="scores">
+                        <ScoreList user_scores={user_scores} global_scores={global_scores}/>
                     </div>
-                    <Button color="primary" variant="contained" onClick={() => window.location = "/menu"} block>Return to Menu</Button>
+                    <Button color="primary" variant="contained" onClick={() => window.location = "/menu"}>Return to Menu</Button>
                 </div>
             </div>
 		</div>);

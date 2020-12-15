@@ -1,58 +1,88 @@
 .scores
 {
+    width: 100%;
+    color: rgb(162, 7, 209);
     text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-shadow: -1px -1px rgb(0, 0, 0);
 }
 .scores > div > ul
 {
     display: flex;
     flex-direction: row;
-    padding: initial;
+    padding: 0;
     margin: 0;
     width: 100%;
+    overflow: hidden;
 }
-/* onglet Tab */
+/* Nav Tab */
 .scores  ul > li 
 {
     display: flex;
     flex-direction: row;
-    padding: 0.3em;
-    padding-left: 0.5em;
-    padding-right: 1em;
-    width: auto;
+    width: 100%;
+
+    padding: 3%;
+
     border: 3px ridge rgb(61, 61, 151);
     border-top-left-radius: 0.4em;
     border-top-right-radius: 0.4em;
+
+    font-size: clamp(10px, 1.7vW, 20px);
+    color: rgb(162, 7, 209);
     background-color: rgb(132, 135, 131);
+
 }
+/*Nav Tab active*/
 .scores  ul > li.active
 {
-    background-color: rgb(91, 101, 139);
+    background-color: rgb(105, 115, 151);
+    color: white;
+    text-shadow: none;
 }
-/*border*/
+/*content*/
 .scores div > div
 {
     width: 100%;
 
-    background-color: rgb(199, 193, 193);
+    background-color: rgb(214, 211, 211);
     border: 3px ridge rgb(61, 61, 151) ;
     border-top: 1px ridge rgb(61, 61, 151);
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding: 0.5em;
+    padding: 0.2em;
 }
 
-.scores  ul > li a
-{
-    color: rgb(253, 253, 253);
-
-}
-.scores  ul > li a:hover
-{
-    text-decoration: none;
-}
-/* onglet content */
+/* Nav item */
 .scores div div li
 {
-    white-space: pre;
-    margin: 0.1em;
+    width: auto;
+    padding: 1px;
+    margin: 0.3em;
+    height: auto;
+    color: black;
+    background-color:  rgba(224, 144, 248, 0.487);
+    text-shadow: none;
+}
+
+/* Nav item content */
+.scores p
+{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    font-size: small;
+    font-weight: bold;
+    overflow: hidden;
+    margin: auto;
+
+}
+.scores .subtitles
+{
+    color: rgb(162, 7, 209);
+    text-shadow: none;
+    font-size: 60%;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import API from "../../../utils/API";
 import "./Login.css";
 import "../Account.css"
@@ -11,11 +11,6 @@ class Login extends React.Component {
 		error_msg: ""
 	};
 
-	componentWillMount()
-	{
-		if (API.isAuth())
-			window.location = "/menu";
-	}
 	send = async () => {
 		const { name, password } = this.state;
 		if (!name || name.length === 0) {
@@ -55,8 +50,8 @@ class Login extends React.Component {
 			<div className="Account Login">
 				<h2>Login</h2>
 				<span className="error">{this.state.error_msg}</span>
-				<FormGroup controlId="name" bsSize="large">
-					<ControlLabel>Name</ControlLabel>
+				<FormGroup controlId="name" bssize="large">
+					<FormLabel>Name</FormLabel>
 					<FormControl
 						autoFocus
 						type="name"
@@ -64,20 +59,20 @@ class Login extends React.Component {
 						onChange={this.handleChange}
 					/>
 				</FormGroup>
-				<FormGroup controlId="password" bsSize="large">
-					<ControlLabel>Password</ControlLabel>
+				<FormGroup controlId="password" bssize="large">
+					<FormLabel>Password</FormLabel>
 					<FormControl
 						value={password}
 						onChange={this.handleChange}
 						type="password"
 					/>
 				</FormGroup>
-				<Button className="btn-primary" onClick={this.send} block bsSize="large" type="submit">
+				<Button className="btn-primary" onClick={this.send} block bssize="large" type="submit">
 					Connexion
 				</Button>
 				<div className="not_yet">
 					<span>Pas encore inscrit?</span>
-					<Button className="btn-success" onClick={()=> window.location = "/signup"} bsSize="large" type="submit">
+					<Button className="btn-success" onClick={()=> window.location = "/signup"} bssize="large" type="submit">
 						S'inscrire
 					</Button>
 				</div>

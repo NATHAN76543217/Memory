@@ -5,19 +5,19 @@ import './Header.css';
 
 function Header ({logged}){
 		return(
-			<header>
+			<header className={logged ? "" : "Hnotlogged"}> 
 				<h1>Memory</h1>
 				{logged ?
-					<Button onClick={()=>{API.logout()}} bsClass="log-button" style={{marginLeft: "auto"}}>
+					<Button onClick={()=>{API.logout()}} className="log-button" style={{marginLeft: "auto"}}>
 						Logout
 					</Button>
 				:<Fragment>
-						<Button onClick={()=>{window.location = "/"}} bsClass="log-button" style={{marginLeft: "auto"}}>
+						<Button onClick={()=>{window.location = "/"}} className="log-button notlogged" style={{marginLeft: "auto"}}>
 							<div>
 								Login
 							</div>
 						</Button>
-						<Button onClick={()=>{window.location = "/signup"}} bsClass="log-button">
+						<Button onClick={()=>{window.location = "/signup"}} className="log-button notlogged">
 							Signup
 						</Button>
 					</Fragment>}

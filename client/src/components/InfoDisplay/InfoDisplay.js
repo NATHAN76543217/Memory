@@ -8,11 +8,12 @@ function InfoDisplay({user, game})
             {user.name}<br/>
         </h2>
         <p>
-            Victories: {user.victories}<br/>
-            Defeats: {user.defeats}
+            Victories:&ensp;{user.victories}<br/>
+            Defeats:&emsp;{user.defeats}
         </p>
         <p>
-            Pairs left: {game.pair_left}<br/>
+            Pairs left:&ensp;{game.pair_left}<br/>
+            time left:&ensp;{game.time_left} seconds<br/>
         </p>
     </div>
 );}

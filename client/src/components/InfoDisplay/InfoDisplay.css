@@ -10,6 +10,8 @@
   margin-top: 3%;
   padding: 1em;
 
+  border: 0.3em inset goldenrod;
+  border-radius: 15px;
   background-color: white;
 }
 .info h2
@@ -22,10 +24,9 @@
 {
   .info
   {
-    min-width: 0;
-    min-height: 0;
-    width: fit-content;
-    margin: auto;
+    width: auto;
+    max-width: none;
+    margin: 4%;
 
   }
 }

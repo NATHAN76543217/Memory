@@ -13,6 +13,7 @@ import ScoreList from "../ScoreList/ScoreList.js"
 
 function Menu()
 {
+	//Hooks
 	const [nb_card, setNbCard] = useState("5");
 	const [user_scores, setUserScores] = useState(["-1"]);
 	const [global_scores, setGlobalScores] = useState(["-1"]);
@@ -24,8 +25,11 @@ function Menu()
 	  useEffect(() => {
 		async function getScores() {
 			const scores = await API.getScores("user", nb_card);
-			setUserScores(scores.user);
-			setGlobalScores(scores.global);
+			if(scores != null)
+			{
+				setUserScores(scores.user);
+				setGlobalScores(scores.global);
+			}
 		}
 		getScores();
 	 }, [nb_card]);
@@ -33,10 +37,10 @@ function Menu()
 	console.log("Score => ");
 	console.log(user_scores);
 	return (
-		<div class="menu">
-			<div class="intern">
+		<div className="menu">
+			<div className="intern">
 				<h2>Menu</h2>
-				<div class="content">
+				<div className="content">
 					<FormControl component="fieldset">
 						<FormLabel component="legend">Nombre de paires:</FormLabel>
 						<RadioGroup row aria-label="nb_pair" name="nb_pair1" value={nb_card} onChange={handleChange}>
@@ -48,7 +52,7 @@ function Menu()
 							<FormControlLabel value={"15"} control={<Radio />} label="15" />
 						</RadioGroup>
 					</FormControl>
-					<div class="scores">
+					<div className="scores">
 						<ScoreList user_scores={user_scores} global_scores={global_scores}/>				
 					</div>
 				</div>

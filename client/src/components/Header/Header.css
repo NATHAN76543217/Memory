@@ -1,47 +1,86 @@
 header
 {
-    display: flex;
-    background-color: rgb(87, 187, 162);
-    flex-flow: row nowrap;
-    min-height: 50px;
-    max-height: 5%;
+		display: flex;
+		background-color: rgb(87, 187, 162);
+		flex-flow: row nowrap;
+		min-height: 50px;
+		max-height: 5%;
 }
 h1
 {
-  text-align: center;
-  font-size: 60px;
-  top:0;
-  margin: 0;
-  padding: 0.1em;
-  padding-left: 0.5em;
-
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: space-evenly;
+	font-size: clamp(17px, 6vw, 50px);
+	
+	margin: 0;
+	padding: 0.2em;
+	padding-left: 0.5em;
+}
+header > div
+{
+	width: 100%;
 }
 .log-button
 {
-  display:block;
+	display:block;
 
-  min-width: 150px;
-  width: 10%;
-  max-width: 200px;
-  text-align: center;
-  font-size: large;
-  background-color: inherit;
-  border: 0;
-  padding: 0;
+	width: 10%;
+	min-width: clamp(70px, 15%, 300px);
+	max-width: 200px;
+	color: black;
+	padding: 0;
+
+	text-align: center;
+	font-size: clamp(12px, 3vw, 20px);
+
+	background-color: inherit;
+	border: 0;
 }
 .log-button > div
 {
-  display: inline-block;
+	display: inline-block;
+	width: 100%;
+	margin-left: auto;
 
-  width: 100%;
-  margin-left: auto;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
 
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-
-  border-right: 0.15em ridge rgb(131, 116, 116);
+	border-right: 0.2vw ridge rgb(131, 116, 116);
 }
 .log-button:hover
 {
-  background-color: rgb(39, 202, 162);
+	background-color: rgb(39, 202, 162);
+	outline: none;
 }
+
+
+@media screen and (max-width: 250px)
+{
+	header.Hnotlogged
+	{
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: baseline;
+		max-height: 60px;
+	}
+	header h1
+	{
+		flex:1;
+		padding: 0.5em;
+	}
+	.notlogged
+	{
+		justify-self: auto;
+		margin: auto;
+
+	}
+	.log-button > div
+	{
+		border: 0;
+		width: fit-content;
+		border-bottom: 0.15em ridge rgb(131, 116, 116);
+	}
+}
+
