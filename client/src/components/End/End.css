@@ -16,10 +16,16 @@
 
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: auto;
     margin: auto;
     min-width: 30%;
 }
+.end h1
+{
+    margin: 5%;
+    padding: 0;
+}
+
 .end > .inner > div
 {
     display: flex;
@@ -30,10 +36,16 @@
 }
 .inner button
 {
+    margin: auto;
     margin-top: 1em;
     margin-bottom: 1em;
-}
+    width: 100%;
 
+}
+.inner a
+{
+    width: 60%;
+}
 .inner span
 {
     margin: auto;
@@ -41,7 +53,7 @@
 .end .content 
 {
     width: fit-content;
-    min-width: 90%;
+    min-width: 100%;
     margin: auto;
     display: flex;
     padding: 5%;

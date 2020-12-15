@@ -7,11 +7,7 @@ const burl = "http://localhost:8800";
 
 function login(name, password) {
 	//create a POST http request
-	return axios.post(
-		`${burl}/login`,{name, password},{
-			headers: headers
-		}
-	);
+	return axios.post(`${burl}/login`, { name, password }, { headers : headers });
 }
 function signup(send) {
 	return axios.post(`${burl}/signup`, send, { headers: headers });
@@ -21,7 +17,6 @@ function isAuth() {
 	const token = getToken();
 	if (token == null)
 		return false;
-	console.log("token founded");
 	const res = axios.get(`${burl}/isAuth`, {headers:headers, params:{token:token}})
 	.then((res) => {return res.data.isAuth})
 	.catch(error => {
@@ -46,7 +41,7 @@ function getToken() {
 function updateToken()
 {
 	console.log("UPDATE TOKEN");
-	return axios.put(`${burl}/updateToken`, {token:getToken()}, {headers:headers})
+	const update = axios.put(`${burl}/updateToken`, {token:getToken()}, {headers:headers})
 	.then((res)=> {
 		console.log(res);
 		localStorage.setItem("token", res.data.token);
@@ -58,6 +53,7 @@ function updateToken()
 			logout();
 		}		
 	});
+	return update;
 }
 function getUserInfo() {
 	if (this.isAuth){

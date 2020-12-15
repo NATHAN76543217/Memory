@@ -60,7 +60,11 @@ function End()
                     <div className="scores">
                         <ScoreList user_scores={user_scores} global_scores={global_scores}/>
                     </div>
-                    <Button color="primary" variant="contained" onClick={() => window.location = "/menu"}>Return to Menu</Button>
+                    <Link to={{
+                    pathname: "/menu",
+                    }}>
+                       <Button color="primary" variant="contained">Return to Menu</Button>
+                    </Link>
                 </div>
             </div>
 		</div>);

@@ -1,12 +1,17 @@
 import {Fragment} from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import API from '../../utils/API';
 import './Header.css';
 
 function Header ({logged}){
 		return(
 			<header className={logged ? "" : "Hnotlogged"}> 
-				<h1>Memory</h1>
+				<Link to={{
+						pathname: "/menu",
+						}}>
+						<h1>Memory</h1>	
+					</Link>							
 				{logged ?
 					<Button onClick={()=>{API.logout()}} className="log-button" style={{marginLeft: "auto"}}>
 						Logout

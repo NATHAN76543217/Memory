@@ -1,10 +1,13 @@
 .info
 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 20%;
   min-width: 10%;
-  max-width: 30%;
+  max-width: 20%;
 
-  min-height: 30%;
+  min-height: 30vw;
 
   margin: auto;
   margin-top: 3%;
@@ -16,10 +19,18 @@
 }
 .info h2
 {
-    width: fit-content;
-    margin: auto;
-    margin-bottom: 4%;
-}
+    width: auto;
+    margin-bottom: none;
+    justify-self: flex-start;
+
+  /* cross axis */
+    align-self: center;
+  }
+  .info p
+  {
+   margin-top: 3%;
+   margin-bottom: 2%;
+  }
 @media (max-width: 500px)
 {
   .info
@@ -27,6 +38,11 @@
     width: auto;
     max-width: none;
     margin: 4%;
-
+    padding-top: 1%;
+    padding-bottom: 4%;
+  }
+  .info h2
+  {
+    margin: 0;
   }
 }
