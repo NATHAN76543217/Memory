@@ -10,7 +10,6 @@ import notFound from './components/Error/404.js';
 import { PrivateRoute } from "./components/PrivateRoute.js";
 import Header from './components/Header/Header.js';
 import API from "./utils/API.js";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 class App extends Component {
 	constructor(props)
@@ -30,9 +29,6 @@ class App extends Component {
 			<div className="App">
 				<Header logged={this.state.logged}/>
 				<div className="App-content">
-				<TransitionGroup>
-
-				<CSSTransition classNames="pageTransition" timeout={500}>
 					<Switch>
 						<Route exact path="/" render={()=> {return (this.state.logged ? 
 							<Redirect to={{ pathname: '/menu'}}/>
@@ -45,8 +41,6 @@ class App extends Component {
 						<PrivateRoute path="/endgame" component={End} />
 						<Route render={notFound} />
 					</Switch>
-					</CSSTransition>
-			</TransitionGroup>      
 				</div>
 			</div>
 		);

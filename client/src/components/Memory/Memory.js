@@ -6,7 +6,14 @@ import img_loader from './images/images'
 import ProgressBar from "../ProgressBar/ProgressBar.js"
 import API from "../../utils/API.js"
 
-//mélange de facon aléatoire le tableau passé en entrée
+//DONE  Add Start timer on first click
+//DONE passer data par bouton retry
+//DONE a chaque de debut de partie re crée un token
+//DONE verifier les changement de durée de validité du token
+//DONE ajouter redirection d'user si arrive sur page log ou signin vers le menu
+//DONE add time elapsed to end page
+
+//random shuffle tab
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -24,12 +31,7 @@ function shuffle(array) {
 	}
 	return array;
   }
-//DONE  Add Start timer on first click
-//DONE passer data par bouton retry
-//DONE a chaque de debut de partie re crée un token
-//TODO verifier les changement de durée de validité du token
-//TODO ajouter redirection d'user si arrive sur page log ou signin vers le menu
-//DONE add time elapsed to end page
+  
 class Memory extends React.Component
 {
 	constructor(props)
@@ -62,6 +64,7 @@ class Memory extends React.Component
 		this.startGame();
 	}
 	//Game state
+	//Start a game
 	startGame()
 	{
 		if (localStorage.getItem("running") === "true")
@@ -90,6 +93,7 @@ class Memory extends React.Component
 		localStorage.setItem("running", "true");
 		API.updateToken();
 	}
+	//restore card_list saved (and it's state)
 	restoreList()
 	{
 		//liste de l'ordre des key
@@ -110,10 +114,9 @@ class Memory extends React.Component
 		console.log(card_list);
 		return card_list;
 	}
+	//restore game saved
 	restoreGame()
 	{
-		//restaure la partie au dernier état enregistré en cas de refresh de la page
-		//verifier l'état des variable du stockage local
 		const nb_pair_left = parseInt(localStorage.getItem("pair_left"));
 		const nb_pair = parseInt(localStorage.getItem("nb_pair"));
 		const time_left = parseInt(localStorage.getItem("time_left"));
@@ -132,69 +135,55 @@ class Memory extends React.Component
 		});
 		return;
 	}
+	//load fruit cards in card_list
+	load_cards(nb_pair_to_load)
+	{
+		const fruits = img_loader(nb_pair_to_load);
+		let dup = [];
+		//fill dup with a copy a fruits
+		fruits.forEach(f => 
+			dup.push({...f}));
+		//set l'id pour chaque fruit
+		dup.forEach(elem => elem.k = elem.id + dup.length);
+		//cards == fruits + dup
+		const cards = [...fruits, ...dup];
+		console.log("set a donne of " + cards.length + " cards");
+		console.log(cards);
+		return shuffle(cards);
+	}
+	//Stop the game
 	endGame()
 	{
-		//fin du jeu redi
-		localStorage.removeItem("running");
 		const result = (this.state.pair_left === 0 ? "win" : "loose" );
 		const time_elapsed = this.state.total_time - this.state.time_left;
+		localStorage.removeItem("running");
 		localStorage.setItem("time_elapsed", time_elapsed);
 		API.sendScore(this.state.nb_pair, result, time_elapsed);
 		return null;
 	}
-
-	//Jeu
-	test_match(flip)
+	//Save game state in localStorage for a potential future resume
+	saveState()
 	{
-		if (this.getFruit(flip[0]).id === this.getFruit(flip[1]).id)
-		{
-			console.log("Match!");
-			return true;
-		}
-		console.log("No match");
-		return false;
-		
-	}
-	updateFruit(fruit)
-	{
-		//récup une copie de liste de fruit
-		const lst = [...this.state.card_list];
-		//récupere l'index du fruit à changer
-		const ndx = this.getFruitIndex((f) => f.k === fruit.k);
-		//met a jour le fruit dans la liste
-		lst[ndx] = fruit;
-		//update state
-		this.setState({card_list: lst})
-	}
-
-	getFruitIndex(ft)
-	{
-		return this.state.card_list.findIndex(ft);
-	}
-	getFruit(ndx)
-	{
-		return this.state.card_list[ndx];
-	}
-	close_cards(flip, timer)
-	{
-		//cache les cartes visibles
-		flip.forEach((ndx)=> {
-			console.log("hide ndx:" + ndx);
-			const fruit = this.getFruit(ndx);
-			fruit.visible = false;
-			this.updateFruit(fruit);
+		const card_list = this.state.card_list;
+		let visible = [];
+		let card_order = [];
+		card_list.map((card)=>{
+			card_order.push(card.k);
+			if (card.visible === true && this.state.flipped.includes(this.getFruitIndex((f) => f.k === card.k)) === false)
+			{
+				visible.push(card.k);
+			}
+			return 0;
 		});
-		this.setState({flipped: [], locked: false});
-		clearTimeout(timer);
+		localStorage.setItem("card_list_visible", visible);
+		localStorage.setItem("card_list_order", card_order);
+		localStorage.setItem("nb_pair", this.state.nb_pair);
+		localStorage.setItem("pair_left", this.state.pair_left.toString());
+		localStorage.setItem("time_left", this.state.time_left.toString());
 	}
-
-	match()
-	{
-		// reset
-		this.setState({
-			pair_left: this.state.pair_left - 1,
-			flipped: []});
-	}
+	
+	//Jeu
+	//handle clic on card
 	clickOnCard(fruit)
 	{
 		//if first click
@@ -203,7 +192,6 @@ class Memory extends React.Component
 		const flip = [...this.state.flipped];
 		if (fruit.visible || this.state.locked)
 			return;
-		console.log("set visible: key=" + fruit.k + " et id=" + fruit.id);
 		//set fruit visible
 		fruit.visible = true;
 		this.updateFruit(fruit);
@@ -226,23 +214,59 @@ class Memory extends React.Component
 		else
 			this.setState({flipped: flip});
 	}
-
-	load_cards(nb_pair_to_load)
+	test_match(flip)
 	{
-		const fruits = img_loader(nb_pair_to_load);
-		console.log("Nb fruit Loaded:" + fruits.length);
-		let dup = [];
-		//fill dup with a copy a fruits
-		fruits.forEach(f => 
-			dup.push({...f}));
-		//set l'id pour chaque fruit
-		dup.forEach(elem => elem.k = elem.id + dup.length);
-		//cards == fruits + dup
-		const cards = [...fruits, ...dup];
-		console.log("set a donne of " + cards.length + " cards");
-		console.log(cards);
-		return shuffle(cards);
+		if (this.getFruit(flip[0]).id === this.getFruit(flip[1]).id)
+		{
+			console.log("Match!");
+			return true;
+		}
+		console.log("No match");
+		return false;
+		
 	}
+	match()
+	{
+		// reset
+		this.setState({
+			pair_left: this.state.pair_left - 1,
+			flipped: []});
+	}
+	//flip back every fruit in flip param
+	close_cards(flip, timer)
+	{
+		flip.forEach((ndx)=> {
+			const fruit = this.getFruit(ndx);
+			fruit.visible = false;
+			this.updateFruit(fruit);
+		});
+		this.setState({flipped: [], locked: false});
+		clearTimeout(timer);
+	}
+	//utils
+	//update one element of card_list
+	updateFruit(fruit)
+	{
+		//récup une copie de liste de fruit
+		const lst = [...this.state.card_list];
+		//récupere l'index du fruit à changer
+		const ndx = this.getFruitIndex((f) => f.k === fruit.k);
+		//met a jour le fruit dans la liste
+		lst[ndx] = fruit;
+		//update state
+		this.setState({card_list: lst})
+	}
+	//get fruit index that validate function props
+	getFruitIndex(ft)
+	{
+		return this.state.card_list.findIndex(ft);
+	}
+	//get fruit in card_list by index
+	getFruit(ndx)
+	{
+		return this.state.card_list[ndx];
+	}
+
 //Timer
 	startTimer() {
 		  this.setState({timer:  setInterval(this.countDown, 1000)}, () => {
@@ -252,7 +276,6 @@ class Memory extends React.Component
 	countDown() {
 		// Remove one second, set state so a re-render happens.
 		let seconds_left = this.state.time_left - 1;
-		seconds_left % 10 === 0 && console.log("-timeleft:" + seconds_left)	
 		this.setState({
 		  time_left: seconds_left,
 		  percent: this.state.time_left / this.state.total_time,
@@ -264,26 +287,7 @@ class Memory extends React.Component
 			clearInterval(this.state.timer);
 		}
 	  }
-	//enregistre dans le localstorage l'état actuel du jeu (pour une futur reprise)
-	saveState()
-	{
-		const card_list = this.state.card_list;
-		let visible = [];
-		let card_order = [];
-		card_list.map((card)=>{
-			card_order.push(card.k);
-			if (card.visible === true && this.state.flipped.includes(this.getFruitIndex((f) => f.k === card.k)) === false)
-			{
-				visible.push(card.k);
-			}
-			return 0;
-		});
-		localStorage.setItem("card_list_visible", visible);
-		localStorage.setItem("card_list_order", card_order);
-		localStorage.setItem("nb_pair", this.state.nb_pair);
-		localStorage.setItem("pair_left", this.state.pair_left.toString());
-		localStorage.setItem("time_left", this.state.time_left.toString());
-	}
+
 	render(){
 		if (this.state.card_list.lenght !== 0 && this.state.pair_left !== -1)
 			this.saveState();
@@ -299,9 +303,6 @@ class Memory extends React.Component
 						<InfoDisplay user={this.state.user} game={this.state}/>
 				    </div>		
 				)};
-
 }
-//<Button onClick={() => this.setState({pair_left: 0})} >WIN GAME</Button>
-//<Button onClick={() => this.setState({time_left: 1})} >LOOSE GAME</Button>
 
 export default Memory;

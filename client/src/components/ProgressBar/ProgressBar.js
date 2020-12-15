@@ -16,14 +16,11 @@ const Timer = withStyles(() => ({
 }))(LinearProgress);
 
 function ProgressBar({variant, value}){
-  const [progress, setProgress] = React.useState(100);
-  value !== progress && setProgress(value)
-    
-    
-    return(
-      <Timer variant={variant} value={progress} />
+	const [progress, setProgress] = React.useState(100);
+	value !== progress && setProgress(value)
+	return(
+		<Timer variant={variant} value={progress} />
     );
-
 };
 
 export default ProgressBar;

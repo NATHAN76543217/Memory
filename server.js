@@ -51,12 +51,6 @@ router.use('/user/:id', function (req, res, next) {
 app.use("", router);
 require(__dirname + "/controllers/userController")(router);
 
-/*
-//On définit la route Hello
-app.get('/hello',function(req,res){
-	res.json("Hello World")
-})
-*/
 app.use(function(req, res){
 	res.status(404);
 	// respond with json
@@ -71,7 +65,6 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //set routine for leaderboard update
 setInterval(function() {
-	console.log("LEADERBOARD COMPUTE")
 	leaderboard.compute();
-}, 1000 * 60 * 5
+}, 1000 * 60 * 5//5minutes
 );

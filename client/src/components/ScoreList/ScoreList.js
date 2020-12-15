@@ -10,7 +10,6 @@ const Item = withStyles(() => ({
 	root: {
 	  height: 20,
 	  marginTop: 30,
-	  backgroundColor: "#999999",
 	  borderRadius: 8,
 		Width: 1,
 	},
@@ -18,17 +17,16 @@ const Item = withStyles(() => ({
 
 function ScoreList({user_scores, scope, global_scores})
 {  
-
 	const [selected, setSelected] = useState("User");
-	var scoreItems = [];
 	const scores = selected === "User" ? user_scores : global_scores;
-	var k = null;
+	var scoreItems = [];
+	var names = null;
 	if (scores != null)
 	{
 		for (let i = 0 ; i < scores.length; i++)
 		{
 			if (selected === "World")
-				k = Object.keys(scores[i]);
+				names = Object.keys(scores[i]);
 			scoreItems.push(
 
 				<Item key={i}>
@@ -37,18 +35,17 @@ function ScoreList({user_scores, scope, global_scores})
 							<span>{i + 1} - </span>
 							<span>{scores[i]}</span>
 						</p>}/>
-					: <ListItemText  primary={<p>
+					: <ListItemText  primary={
+					<p>
 						<span>{i+1} - </span>
-						<span>{k}</span>
-						<span>{scores[i][k]}</span>
+						<span>{names}</span>
+						<span>{scores[i][names]}</span>
 						</p>}
 					/>}
 				</Item>
 
 			);
 		}
-		console.log("items");
-		console.log(scoreItems);
 	}
 	else
 		scoreItems.push("No score yet");
@@ -62,15 +59,15 @@ function ScoreList({user_scores, scope, global_scores})
 						<span>Rank</span>
 						<span>Time (s)</span>	
 						</p>
-						{scoreItems}
+					{scoreItems}
 				</Tab>
 				<Tab isSelected={ selected === 'World' }>
-				<p className="subtitles">
+					<p className="subtitles">
 						<span>Rank</span>
 						<span>Username</span>
 						<span>Time (s)</span>	
 						</p>
-						{scoreItems}
+					{scoreItems}
 				</Tab>
 			</TabNav>
 

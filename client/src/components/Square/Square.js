@@ -8,7 +8,7 @@ function Square ({fruit, onClick})
 	return (
 		<Grid item xs={2}>
 			<Card className="card" onClick={onClick}>
-			{fruit.visible ? <CardMedia component="img" image={fruit.img}/> : <CardMedia component="img" image={fruit.hidden}/>} 
+				{fruit.visible ? <CardMedia component="img" image={fruit.img}/> : <CardMedia component="img" image={fruit.hidden}/>} 
 			</Card>
 		</Grid>);
 }
