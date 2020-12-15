@@ -2,8 +2,8 @@
   "name": "memory",
   "version": "1.0.0",
   "main": "server.js",
-  "url" : "https://github.com/NATHAN76543217/Memory/issues",
-  "email" : "lecaille.nathan@outlook.fr",
+  "url": "https://github.com/NATHAN76543217/Memory/issues",
+  "email": "lecaille.nathan@outlook.fr",
   "scripts": {
     "start": "concurrently \" npm run server\" \"npm run client\"",
     "server": "nodemon --delay 500ms --exec npm run babel-node server.js",
@@ -16,7 +16,9 @@
     "create-react-app": "^1.5.2",
     "express": "^4.16.2",
     "jwt-simple": "^0.5.1",
+    "mongodb": "^3.6.3",
     "mongoose": "^5.0.7",
+    "nodemon": "^2.0.6",
     "password-hash": "^1.2.2"
   },
   "devDependencies": {
