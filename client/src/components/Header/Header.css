@@ -2,7 +2,7 @@ header
 {
 		display: flex;
 		background-color: rgb(87, 187, 162);
-		background: linear-gradient( rgb(87, 187, 162) 20%, #eee 50%, #333 100%);
+		background: linear-gradient( rgb(87, 187, 162) 35%, rgb(223, 233, 213) 85%, #333 100%);
 		flex-flow: row nowrap;
 		min-height: 50px;
 		max-height: 5%;

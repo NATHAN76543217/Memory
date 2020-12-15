@@ -2,9 +2,11 @@
   "name": "memory",
   "version": "1.0.0",
   "main": "server.js",
+  "url" : "https://github.com/NATHAN76543217/Memory/issues",
+  "email" : "lecaille.nathan@outlook.fr",
   "scripts": {
     "start": "concurrently \" npm run server\" \"npm run client\"",
-    "server": "nodemon --exec npm run babel-node server.js",
+    "server": "nodemon --delay 500ms --exec npm run babel-node server.js",
     "client": "cd client && npm start",
     "babel-node": "./node_modules/.bin/babel-node"
   },

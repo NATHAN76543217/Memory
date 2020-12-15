@@ -103,6 +103,8 @@ class Memory extends React.Component
 		const nb_pair = parseInt(localStorage.getItem("nb_pair"));
 		//liste des
 		const load_list = this.load_cards(nb_pair);
+		if (load_list == null || nb_pair == null || visible_list == null || order_list == null)
+			return null;
 		var card_list = [];
 		order_list.split(",").forEach((key) => {
 			const ndx = load_list.findIndex((f) => f.k === parseInt(key));
@@ -120,9 +122,9 @@ class Memory extends React.Component
 		const nb_pair_left = parseInt(localStorage.getItem("pair_left"));
 		const nb_pair = parseInt(localStorage.getItem("nb_pair"));
 		const time_left = parseInt(localStorage.getItem("time_left"));
-		if (nb_pair_left == null || nb_pair_left === 0 || time_left == null || time_left === 0)
-			return -1;
 		const listSet = this.restoreList();
+		if (nb_pair_left == null || nb_pair_left === 0 || time_left == null || time_left === 0 || listSet == null)
+			return -1;
 		const total_time = nb_pair * 10;
 		this.setState({
 			card_list: listSet,
@@ -168,6 +170,8 @@ class Memory extends React.Component
 		let visible = [];
 		let card_order = [];
 		card_list.map((card)=>{
+			if (card == null)
+				return 0;
 			card_order.push(card.k);
 			if (card.visible === true && this.state.flipped.includes(this.getFruitIndex((f) => f.k === card.k)) === false)
 			{
