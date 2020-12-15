@@ -1,7 +1,12 @@
 # Memory
     First projet React/Node.js
     A memory game.
+    Décembre 2020.
 
+## Running project
+    Clone github repository on your computer and enter in.
+    To start memory run `npm install` then `npm start`.
+    Make sure to have a mongodb database up on your computer.
 ## Available Scripts
     In the project directory, you can run:
 ### `npm start`
