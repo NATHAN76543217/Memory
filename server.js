@@ -35,17 +35,6 @@ app.use(function (req, res, next) {
 
 //Définition du routeur
 const router = express.Router();
-router.use(function timeLog (req, res, next) {
-	//console.log('Time: ', new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''))
-	next()
-})
-router.use('/user/:id', function (req, res, next) {
-	console.log('Request URL:', req.originalUrl)
-	next()
-}, function (req, res, next) {
-	console.log('Request Type:', req.method)
-	next()
-})
 
 //mount router on app
 app.use("", router);

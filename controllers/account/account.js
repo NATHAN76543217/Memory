@@ -24,7 +24,7 @@ async function signup(req, res) {
 			});
 		}
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return res.status(500).json({ error });
 	}
 	try {
@@ -36,7 +36,7 @@ async function signup(req, res) {
 			token: userObject.genToken()
 		});
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return res.status(500).json({error: error, text:"save user data"});
 	}
 }
@@ -65,7 +65,7 @@ async function login(req, res) {
 				text: "Authentification réussi"
 			});
 		} catch (error) {
-			console.log (error);
+			console.error(error);
 			return res.status(500).json({
 				error
 			});

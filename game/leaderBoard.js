@@ -6,14 +6,10 @@ async function save_leaderboard(leaderboard_scores)
 {
 	try{
 		var leaderboard = await LeaderBoard.findOne({name: "leaderBoard_v1"});
-		console.log(leaderboard);
-
 		if (leaderboard == null)
 			leaderboard = new LeaderBoard({name: "leaderBoard_v1", scores : leaderboard_scores});
 		else
 			leaderboard.scores = leaderboard_scores;
-		console.log("Lead");
-		console.log(leaderboard);
 		await leaderboard.save();
 	}
 	catch (error) {console.error(error)}
@@ -24,7 +20,6 @@ function parse(scores)
 	let leader = {};
 	for (const key of Object.keys(scores))
 	{
-		console.log(scores[key]);
 		scores[key].sort((a, b)=> {
 			return parseInt(a[Object.keys(a)[0]]) - parseInt(b[Object.keys(b)[0]])});
 		if (leader[key] == null)

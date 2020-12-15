@@ -24,7 +24,7 @@ function getInfo(req, res)
 			throw (error);
 		findUser.exec((err, user) => {
 			if (err) throw (err);
-			console.log("User: " + user.name)
+			console.log("GET INFO user: " + user.name)
 			return res.status(200).json({
 				name: user.name,
 				victories: user.victories,
@@ -48,18 +48,15 @@ function result(req, res)
 			{
 				user.victories = user.victories + 1;
 				user.addScore(score, nb_card);
-				console.log("USER|| ");
-				console.log(user);
 			}
 			else
 				user.defeats = user.defeats + 1;
 			user.save(function(err){
 				if(err){
-					 console.log(err);
+					 console.error(err);
 					 return;
 			}});
 			console.log("RESULT-- " + user.name + " : " + result);
-			console.log(user.scores);
 			return res.status(200);
 		});
 	} catch (error) {
@@ -74,9 +71,7 @@ async function getScores(req, res)
 	{
 			const gScores = await getScoresGlobal(req, res, nb_card);
 			const uScores = await getScoresUser(req, res, query, nb_card);
-			console.log("SEND");
-			console.log(gScores);
-			console.log(uScores);
+			console.log("SEND SCORES");
 			return res.status(200).json({
 				scores: {
 					global: gScores,
@@ -97,8 +92,7 @@ async function getScoresGlobal(req, res, nb_card)
 }
 async function getScoresUser(req, res, query, nb_card)
 {
-	var score = "coucou"
-	console.log("nb_card = " + nb_card);
+	var score = [];
 	try{
 		if (!query)
 			throw ("user not found")

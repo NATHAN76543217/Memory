@@ -47,7 +47,7 @@ function updateToken(req, res)
         });
     }
 	catch (error) {
-        console.log(error)
+        console.error(error)
         res.status(500).json({"function":"updateToken", "error":error})}
 }
 exports.updateToken = updateToken;

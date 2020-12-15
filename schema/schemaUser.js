@@ -44,8 +44,6 @@ userSchema.methods = {
 	if (this.scores == null || this.scores[nb_card.toString()] == null)
 		return null;
 		let scores = this.scores[nb_card.toString()];
-		console.log("BEST SCORES:");
-		console.log(scores);
 		if (scores == null)
 			return null;
 		return scores.slice(0, 10);
@@ -57,7 +55,6 @@ userSchema.methods = {
 		if (this.scores == null || Object.keys(this.scores).length ===  0)
 		{
 			this.scores = {[nb_card.toString()]: [score,]};
-			console.log(this.scores[nb_card.toString()]);
 		}
 		else if (this.scores[nb_card.toString()] == null)
 		{
