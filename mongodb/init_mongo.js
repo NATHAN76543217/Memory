@@ -10,4 +10,3 @@ db.createUser(
         }]
     }
 )
-console.log("DONE");
