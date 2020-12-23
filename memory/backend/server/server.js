@@ -23,7 +23,6 @@ setInterval(function() {
 	});	}, 1000 * 60//1minutes
 );
 
-
 //On définit notre objet express nommé app
 const app = express();
 

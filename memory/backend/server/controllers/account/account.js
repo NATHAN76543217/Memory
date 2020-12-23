@@ -4,13 +4,9 @@ const passwordHash = require("password-hash");
 async function signup(req, res) {
 	const { password, name } = req.body;
 	console.log("GET SIGNIN");
-	if (!name || !password) {
-		//Le cas où l'email ou bien le password ne serait pas soumit ou nul
-		return res.status(400).json({
-			text: "Nom/Password non transmis"
-		});
-	}
-	// Création d'un objet user, dans lequel on hash le mot de passe
+	if (!name || !password)
+		return res.status(400).json({text: "Erreur lors de l'envoie de données"});
+	// Create user object with hash password
 	const user = {
 		name,
 		password: passwordHash.generate(password)
@@ -25,7 +21,7 @@ async function signup(req, res) {
 		}
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json({ error });
+		return res.status(500).json({ error:error });
 	}
 	try {
 		// Sauvegarde de l'utilisateur en base
@@ -44,13 +40,10 @@ async function signup(req, res) {
 async function login(req, res) {
 		const { password, name } = req.body;
 		var findUser = null;
-		if (!name || !password) { //Le cas où l'email ou bien le password ne serait pas soumit ou nul
-			return res.status(400).json({
-				text: "Requête invalide"
-			});
-		}
+		if (!name || !password)
+			return res.status(400).json({ text: "Requête invalide" });
 		try {
-			// On check si l'utilisateur existe en base
+			// Check if user exist
 			findUser = await User.findOne({ name })
 			if (!findUser)
 				return res.status(401).json({

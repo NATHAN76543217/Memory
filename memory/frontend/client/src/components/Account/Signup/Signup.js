@@ -15,24 +15,34 @@ class Signup extends React.Component {
 		const { name, password, cpassword } = this.state;
 
 		//vérification coté client
-		if (!name || name.length === 0) {this.setState({error_msg: "La saisie de nom est obligatoire"});return};
-		if (!password || password.length === 0) {this.setState({error_msg: "La saisie de mot de passe est obligatoire"});return};
-		if (password !== cpassword) {this.setState({error_msg: "Les deux mots de passe ne sont pas identiques"});return};
+		if (!name || name.length === 0) {this.setState({error_msg: "La saisie de nom est obligatoire"});return}
+		else if (!password || password.length === 0) {this.setState({error_msg: "La saisie de mot de passe est obligatoire"});return}
+		else if (password !== cpassword) {this.setState({error_msg: "Les deux mots de passe ne sont pas identiques"});return};
 		try {
 			const { data } = await API.signup({ name, password });
 			localStorage.setItem("token", data.token);
 			window.location = "/menu";
 		} catch (error) {
-			if (error.response)
-			{
-				if (error.response.status === 400)
-					this.setState({error_msg: error.response.data.text});
-				else if (error.response.status === 401)
-					this.setState({error_msg: "L'utilisateur ou le mot de passe est incorrect"});
-				return;
-			}
-			else
-				this.setState({error_msg: "Network Error"});
+			let error_msg = "";
+			if (!error.response)
+				error_msg = "Network Error";
+			else{
+				switch (error.response.status){
+					case 400:
+						error_msg = error.response.data.text;
+						break;
+					case 500:
+						error_msg = "Server error";
+						break;
+					case 503:
+						error_msg = "error while connecting to database";
+						break;
+					default:
+						error_msg = "An error has occurred";
+						break;}
+				}
+				this.setState({error_msg: error_msg});
+				return ;
 		}
 	};
   handleChange = (event) => {
