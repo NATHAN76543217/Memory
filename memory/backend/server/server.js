@@ -3,18 +3,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const leaderboard = require('./game/leaderBoard.js')
+
 //Connexion à la base de donnée
+var ERROR_DB = false;
 const db_url = process.env.DB_SERVICE + "://" + process.env.DB_USER + ":" + process.env.DB_PASSWORD + "@" + process.env.DB_CNT_NAME + ":" + process.env.DB_PORT + "/" + process.env.DB_NAME;
 console.log(db_url);
-mongoose
-	.connect(db_url, { useNewUrlParser: true , useUnifiedTopology: true })
-	.then(() => {
-	console.log("Connected to mongoDB");
-	})
-	.catch((e) => {
-	console.log("Error while DB connecting");
-	console.log(e);
-	});
+//retry to connect every minutes if failure
+setInterval(function() {
+	mongoose
+		.connect(db_url, { useNewUrlParser: true , useUnifiedTopology: true })
+		.then(() => {
+			console.log("Connected to mongoDB");
+			ERROR_DB = false;
+			clearInterval(this);
+		})
+		.catch((e) => {
+			console.log("Error while DB connecting");
+			ERROR_DB = true;
+	});	}, 1000 * 60//1minutes
+);
+
 
 //On définit notre objet express nommé app
 const app = express();
@@ -34,7 +42,13 @@ app.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
-
+//middlewarre for database error
+app.use((req, res, next)=> {
+	if (req.method != 'OPTIONS' && ERROR_DB)
+		return res.status(503).json({error_msg: "error when connecting to the database"});
+	else
+		next();
+})
 //Définition du routeur
 const router = express.Router();
 

@@ -15,10 +15,10 @@ const Item = withStyles(() => ({
 	},
 }))(ListItem);
 
-function ScoreList({user_scores, scope, global_scores})
+function ScoreList({user_scores, global_scores})
 {  
 	const [selected, setSelected] = useState("User");
-	const scores = selected === "User" ? user_scores : global_scores;
+	const scores = (selected === "User" ? user_scores : global_scores);
 	var scoreItems = [];
 	var names = null;
 	if (scores != null)

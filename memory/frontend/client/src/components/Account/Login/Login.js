@@ -13,30 +13,38 @@ class Login extends React.Component {
 
 	send = async () => {
 		const { name, password } = this.state;
-		if (!name || name.length === 0) {
-			this.setState({error_msg: "Certains champs sont vide"});
-			return;
-		}
-		if (!password || password.length === 0) {
+		if (!name || name.length === 0 || !password || password.length === 0) {
 			this.setState({error_msg: "Certains champs sont vide"});
 			return;
 		}
 		try {
 			const { data } = await API.login(name, password);
 			localStorage.setItem("token", data.token);
-			window.location = "/menu";
-		} catch (error) {
-			if (error.response)
-			{
-				console.log("error nb: " + error.response.status);
-				if (error.response.status === 400)
-					this.setState({error_msg: "Erreur lors de l'envoi de donnée"});
-				else if (error.response.status === 401)
-					this.setState({error_msg: "L'utilisateur ou le mot de passe est incorrect"});
-				return ;
-			}
-			else
-				this.setState({error_msg: "Network Error"});
+			window.location = "/menu"; //login sucess, redirect to menu page
+		}catch (error) {
+			let error_msg = "";
+			if (!error.response)
+				error_msg = "Network Error";
+			else{
+				switch (error.response.status){
+					case 400:
+						error_msg = "Erreur lors de l'envoi de donnée";
+						break;
+					case 401:
+						error_msg = "L'utilisateur ou le mot de passe est incorrect";
+						break;
+					case 500:
+						error_msg = "Server error";
+						break;
+					case 503:
+						error_msg = "error while connecting to database";
+						break;
+					default:
+						error_msg = "An error has occurred";
+						break;
+					}
+				}
+				this.setState({error_msg: error_msg});
 			}
 	};
 	handleChange = (event) => {

@@ -15,8 +15,8 @@ function Menu()
 {
 	//Hooks
 	const [nb_card, setNbCard] = useState("5");
-	const [user_scores, setUserScores] = useState(["-1"]);
-	const [global_scores, setGlobalScores] = useState(["-1"]);
+	const [user_scores, setUserScores] = useState(null);
+	const [global_scores, setGlobalScores] = useState(null);
 
 	const handleChange = (event) => {
 		console.log("New nb card =" + event.target.value);

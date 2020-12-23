@@ -43,20 +43,20 @@ async function signup(req, res) {
 
 async function login(req, res) {
 		const { password, name } = req.body;
-		if (!name || !password) {
-			//Le cas où l'email ou bien le password ne serait pas soumit ou nul
+		var findUser = null;
+		if (!name || !password) { //Le cas où l'email ou bien le password ne serait pas soumit ou nul
 			return res.status(400).json({
 				text: "Requête invalide"
 			});
 		}
 		try {
 			// On check si l'utilisateur existe en base
-			const findUser = await User.findOne({ name });
+			findUser = await User.findOne({ name })
 			if (!findUser)
 				return res.status(401).json({
 					text: "L'utilisateur n'existe pas"
 				});
-			if (!findUser.authenticate(password))
+			else if (!findUser.authenticate(password))
 				return res.status(401).json({
 					text: "Mot de passe incorrect"
 				});
@@ -67,7 +67,7 @@ async function login(req, res) {
 		} catch (error) {
 			console.error(error);
 			return res.status(500).json({
-				error
+				error:error.msg
 			});
 		}
 	}

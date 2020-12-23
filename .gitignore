@@ -10,7 +10,8 @@
 
 # production
 /build
-
+# bdd
+mongodb/db_data
 # misc
 .DS_Store
 .env.local

@@ -22,8 +22,8 @@ function End()
     
     //Hooks
     const [user, setUser] = useState(null);
-	const [user_scores, setUserScores] = useState(["-1"]);
-	const [global_scores, setGlobalScores] = useState(["-1"]);
+	const [user_scores, setUserScores] = useState(null);
+	const [global_scores, setGlobalScores] = useState(null);
     //effect
     useEffect(() => {
 		async function getScores() {
