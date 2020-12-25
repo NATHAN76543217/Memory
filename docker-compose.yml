@@ -24,6 +24,7 @@ services:
         container_name: cnt_memory_back
         ports:
             - "8800:8800"
+            - "465:465"
         volumes:
             - '/server/node_modules'
         restart: always
@@ -33,6 +34,7 @@ services:
             - "db:mongodb"
         environment:
             - NODE_PORT=8800
+            - SMTP_PORT=465
             - DB_SERVICE=mongodb
             - DB_CNT_NAME=cnt_mongo
             - DB_PORT=27017

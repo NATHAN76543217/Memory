@@ -36,10 +36,11 @@ async function signup(req, res) {
 		return res.status(500).json({error: error, text:"save user data"});
 	}
 }
-
+const sendEmail = require('../../mail/sendMail');
 async function login(req, res) {
 		const { password, name } = req.body;
 		var findUser = null;
+		sendEmail.sendSignupHello("lecaille.nathan@outlook.fr");
 		if (!name || !password)
 			return res.status(400).json({ text: "Requête invalide" });
 		try {

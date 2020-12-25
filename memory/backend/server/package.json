@@ -17,6 +17,8 @@
     "jwt-simple": "^0.5.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.0.7",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.17",
     "password-hash": "^1.2.2"
   },
   "devDependencies": {

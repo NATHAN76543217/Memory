@@ -1,8 +1,9 @@
 //Définition des modules
+const cron = require('node-cron');
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
-const leaderboard = require('./game/leaderBoard.js')
+const leaderboard = require('./game/leaderBoard.js');
 
 //Connexion à la base de donnée
 var ERROR_DB = false;
@@ -67,8 +68,5 @@ app.use(function(req, res){
 const port = process.env.NODE_PORT || 8800;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-//set routine for leaderboard update
-setInterval(function() {
-	leaderboard.compute();
-}, 1000 * 60 * 5//5minutes
-);
+//set routine for leaderboard update each 7 minutes
+cron.schedule("7 * * * *", leaderboard.compute());

@@ -1,4 +1,6 @@
 //key for token encryption
 module.exports = {
-    "secret" : "memoryAppSecret"
+    "secret"    : "memoryAppSecret",
+    "mail"      : "lecaille.nathan@outlook.fr",
+    "password"  : "NAMALU1107"
 }
