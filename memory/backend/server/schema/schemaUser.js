@@ -16,6 +16,10 @@ const userSchema = mongoose.Schema(
 			type: String,
 			required: true
 		},
+		email: {
+			type: String,
+			required: false
+		},
 		victories: {
 			type: Number,
 			default: 0

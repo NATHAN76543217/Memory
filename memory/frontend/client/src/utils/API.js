@@ -1,12 +1,12 @@
 import axios from "axios";
 
+//TODO reduire le nombre d'appel à isAuth et fixer le promise not handled + check if server.logout destroy token and if isAuth send anything if token dont exist 
 const headers = {
 	"Content-Type": "application/json"
 };
 const burl = "http://localhost:8800";
 
 function login(name, password) {
-	//create a POST http request
 	return axios.post(`${burl}/login`, { name, password }, { headers : headers });
 }
 function signup(send) {

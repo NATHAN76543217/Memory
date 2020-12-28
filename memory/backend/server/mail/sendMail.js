@@ -1,13 +1,12 @@
 const nodeMailer = require('nodemailer');
 const config = require('../config/config');
 
-function sendSignupHello(email)
+function buildTransporter()
 {
-    console.log("SEND MAIL");
-    let transporter = nodeMailer.createTransport({
+    return nodeMailer.createTransport({
         host: 'smtp-mail.outlook.com',
         port: process.env.SMTP_PORT,
-        secure: true,  //true for 465 port, false for other ports
+        secureConnection: false,  //true for 465 port, false for other ports
         tls: {
             ciphers:'SSLv3'
         },
@@ -16,13 +15,21 @@ function sendSignupHello(email)
             pass: config.password
         }
     });
+}
+
+function sendSignupHello(username, email)
+{
+    //TODO check why email go into spambox
+    let mailContent = 'Hello <b>'+ username + '</b><br/><br/>Thanks for signup on Memory!<br/>We can even send email!<br/>So, impressed? :)<br/><br/>Nathan Lecaille.';
+    let transporter = buildTransporter();
     let mailOptions = {
-        from: '"Memory team" <lecaille.nathan@outlook.com>', // sender address
+        from: '"Memory team" <lecaille.nathan@outlook.fr>', // sender address
         to: email, // list of receivers
         subject: 'Welcome to the memory app', // Subject line
         text: 'Hello world?', // plain text body
-        html: '<b>Hello world? html</b>' // html body
+        html: mailContent // html body
     };
+    console.log("SEND MAIL");
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.log(error);

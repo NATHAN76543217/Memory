@@ -1,4 +1,4 @@
-printjson({test: "COUCOU\n\nCOUCOU"})
+printjson({createUser: "create nlceaill user"})
 db.createUser(
     {
     user : "nlecaill",

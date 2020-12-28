@@ -34,7 +34,7 @@ services:
             - "db:mongodb"
         environment:
             - NODE_PORT=8800
-            - SMTP_PORT=465
+            - SMTP_PORT=587
             - DB_SERVICE=mongodb
             - DB_CNT_NAME=cnt_mongo
             - DB_PORT=27017

@@ -9,20 +9,17 @@ const leaderboard = require('./game/leaderBoard.js');
 var ERROR_DB = false;
 const db_url = process.env.DB_SERVICE + "://" + process.env.DB_USER + ":" + process.env.DB_PASSWORD + "@" + process.env.DB_CNT_NAME + ":" + process.env.DB_PORT + "/" + process.env.DB_NAME;
 console.log(db_url);
-//retry to connect every minutes if failure
-setInterval(function() {
-	mongoose
-		.connect(db_url, { useNewUrlParser: true , useUnifiedTopology: true })
-		.then(() => {
-			console.log("Connected to mongoDB");
-			ERROR_DB = false;
-			clearInterval(this);
+//TODO make function that retry connecting to mongodb every minutes and handle server reaction in that's case
+mongoose
+	.connect(db_url, { useNewUrlParser: true , useUnifiedTopology: true })
+	.then(() => {
+		console.log("Connected to mongoDB");
+		ERROR_DB = false;
 		})
 		.catch((e) => {
 			console.log("Error while DB connecting");
 			ERROR_DB = true;
-	});	}, 1000 * 60//1minutes
-);
+});
 
 //On définit notre objet express nommé app
 const app = express();
@@ -64,7 +61,7 @@ app.use(function(req, res){
 	return;
 	}
 })
-//Définition et mise en place du port d'écoute
+//server listening on port 8800 by default
 const port = process.env.NODE_PORT || 8800;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

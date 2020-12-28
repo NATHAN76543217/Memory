@@ -7,19 +7,21 @@ import "../Account.css"
 class Signup extends React.Component {
 	state = {
 		name: "",
+		email: "",
 		password: "",
 		cpassword: "",
 		error_msg: "",
 	};
 	send = async () => {
-		const { name, password, cpassword } = this.state;
+		const { name, email, password, cpassword } = this.state;
 
 		//vérification coté client
 		if (!name || name.length === 0) {this.setState({error_msg: "La saisie de nom est obligatoire"});return}
+		else if (!email || email.length === 0) {this.setState({error_msg: "La saisie d'email est obligatoire"});return}
 		else if (!password || password.length === 0) {this.setState({error_msg: "La saisie de mot de passe est obligatoire"});return}
 		else if (password !== cpassword) {this.setState({error_msg: "Les deux mots de passe ne sont pas identiques"});return};
 		try {
-			const { data } = await API.signup({ name, password });
+			const { data } = await API.signup({ name, password, email});
 			localStorage.setItem("token", data.token);
 			window.location = "/menu";
 		} catch (error) {
@@ -51,7 +53,7 @@ class Signup extends React.Component {
 	});
   };
   render() {
-	const { name, password, cpassword } = this.state;
+	const { name, email, password, cpassword } = this.state;
 	return (
 	  <div className="Account Signup">
 			<h2>Signup</h2>
@@ -62,6 +64,15 @@ class Signup extends React.Component {
 					autoFocus
 					type="name"
 					value={name}
+					onChange={this.handleChange}
+		  		/>
+			</FormGroup>
+			<FormGroup controlId="email" bssize="large">
+				<FormLabel>Email</FormLabel>
+				<FormControl
+					autoFocus
+					type="email"
+					value={email}
 					onChange={this.handleChange}
 		  		/>
 			</FormGroup>

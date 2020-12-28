@@ -1,15 +1,16 @@
 const User = require("../../schema/schemaUser.js");
 const passwordHash = require("password-hash");
+const sendEmail = require('../../mail/sendMail');
 
 async function signup(req, res) {
-	const { password, name } = req.body;
-	console.log("GET SIGNIN");
-	if (!name || !password)
+	const { password, name, email} = req.body;
+	if (!name || !password || !email)
 		return res.status(400).json({text: "Erreur lors de l'envoie de données"});
 	// Create user object with hash password
 	const user = {
 		name,
-		password: passwordHash.generate(password)
+		password: passwordHash.generate(password),
+		email
 	};
 	// On check en base si l'utilisateur existe déjà
 	try {
@@ -27,6 +28,8 @@ async function signup(req, res) {
 		// Sauvegarde de l'utilisateur en base
 		const userData = new User(user);
 		const userObject = await userData.save();
+		console.log("Somebody signin");
+		sendEmail.sendSignupHello(name, email);
 		return res.status(200).json({
 			text: "Succès",
 			token: userObject.genToken()
@@ -36,11 +39,9 @@ async function signup(req, res) {
 		return res.status(500).json({error: error, text:"save user data"});
 	}
 }
-const sendEmail = require('../../mail/sendMail');
 async function login(req, res) {
 		const { password, name } = req.body;
 		var findUser = null;
-		sendEmail.sendSignupHello("lecaille.nathan@outlook.fr");
 		if (!name || !password)
 			return res.status(400).json({ text: "Requête invalide" });
 		try {
