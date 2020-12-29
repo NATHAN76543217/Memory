@@ -65,34 +65,37 @@ function result(req, res)
 
 async function getScores(req, res)
 {
-	const {token, nb_card} = req.query;
-	const query = getUQueryfromToken(token);
+	//TODO handle promise rejection
 	try
 	{
-			const gScores = await getScoresGlobal(req, res, nb_card);
-			const uScores = await getScoresUser(req, res, query, nb_card);
+			const gScores = await getScoresGlobal(req, res);
+			const uScores = await getScoresUser(req, res);
 			console.log("SEND SCORES");
 			return res.status(200).json({
 				scores: {
-					global: gScores,
-					user :uScores
+					global:	gScores,
+					user:	uScores
 					}
 				});	
 	}
 	catch (error) { return res.status(500).json({"error getScore" : error.name, msg: error.message})}
 }
 
-async function getScoresGlobal(req, res, nb_card)
+async function getScoresGlobal(req, res)
 {
+	const {nb_card} = req.query;
 	try{
 		const board = await LeaderBoard.findOne({name : "leaderBoard_v1"});
+		if (board == null)
+			console.log("leaderboard not found");
 		return board.getScores(nb_card);
-	}
-	catch(error) { return null};
+	}catch (error) { return res.status(500).json({"function" : "getScoreGlobal", "name":error.name, "msg":error.message})}
 }
-async function getScoresUser(req, res, query, nb_card)
+async function getScoresUser(req, res)
 {
-	var score = [];
+	var		score = [];
+	const	{token, nb_card} = req.query;
+	const	query = getUQueryfromToken(token);
 	try{
 		if (!query)
 			throw ("user not found")

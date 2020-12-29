@@ -66,4 +66,4 @@ const port = process.env.NODE_PORT || 8800;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //set routine for leaderboard update each 7 minutes
-cron.schedule("7 * * * *", leaderboard.compute());
+cron.schedule("7 * * * *", leaderboard.compute);
