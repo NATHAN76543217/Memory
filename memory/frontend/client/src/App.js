@@ -7,7 +7,7 @@ import End from "./components/End/End.js";
 import Login from "./components/Account/Login/Login.js";
 import Signup from "./components/Account/Signup/Signup.js";
 import notFound from './components/Error/404.js';
-import { PrivateRoute } from "./components/PrivateRoute.js";
+import { PrivateRoute } from "./routes/PrivateRoute.js";
 import Header from './components/Header/Header.js';
 import API from "./utils/API.js";
 
@@ -15,16 +15,20 @@ class App extends Component {
 	constructor(props)
 	{
 		super(props);
-		this.state ={
-			logged: false,
+		this.state = {
+			logged: undefined,
 		};
 	}
-	componentDidMount()
+	async checkAuth()
 	{
-		const res = API.isAuth();
+		const res = await API.isAuth();
+		console.log("res = :" + res);
 		this.setState({logged: res});
 	}
 	render() {
+
+		if (this.state.logged === undefined)
+			this.checkAuth();
 		return (
 			<div className="App">
 				<Header logged={this.state.logged}/>
@@ -36,9 +40,9 @@ class App extends Component {
 						<Route exact path="/signup" render={()=> {return (this.state.logged ? 
 							<Redirect to={{ pathname: '/menu'}}/>
 							: <Signup/>)}} />
-						<PrivateRoute path="/menu" component={Menu} />
-						<PrivateRoute path="/game" component={Memory} />
-						<PrivateRoute path="/endgame" component={End} />
+						<PrivateRoute isAuth={this.state.logged} path="/menu" component={Menu} />
+						<PrivateRoute isAuth={this.state.logged} path="/game" component={Memory} />
+						<PrivateRoute isAuth={this.state.logged} path="/endgame" component={End} />
 						<Route render={notFound} />
 					</Switch>
 				</div>

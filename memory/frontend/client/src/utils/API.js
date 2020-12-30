@@ -82,6 +82,7 @@ function sendScore(nb_card, result, time_elapsed)
 }
 function getScores(scope, nb_card)
 {
+	// FIXME this.isAuth haven't any sense, may replace by this.isAuth()  
 	if (this.isAuth){
 		const token = this.getToken();
 		return axios.get(`${burl}/scores`, {headers: headers, params: {token: token, nb_card: nb_card}})

@@ -1,6 +1,6 @@
-const User = require("../../schema/schemaUser.js");
 const passwordHash = require("password-hash");
 const sendEmail = require('../../mail/sendMail');
+const User = require("../../schema/schemaUser.js");
 
 async function signup(req, res) {
 	const { password, name, email} = req.body;
