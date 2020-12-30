@@ -59,10 +59,10 @@ class Login extends React.Component {
 				<h2>Login</h2>
 				<span className="error">{this.state.error_msg}</span>
 				<FormGroup controlId="name" bssize="large">
-					<FormLabel>Name</FormLabel>
+					<FormLabel>Username or email</FormLabel>
 					<FormControl
 						autoFocus
-						type="name"
+						type="text"
 						value={name}
 						onChange={this.handleChange}
 					/>

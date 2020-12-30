@@ -46,7 +46,7 @@ async function login(req, res) {
 			return res.status(400).json({ text: "Requête invalide" });
 		try {
 			// Check if user exist
-			findUser = await User.findOne({ name })
+			findUser = await User.findOne({$or:[{"name": name}, {"email": name}]})
 			if (!findUser)
 				return res.status(401).json({
 					text: "L'utilisateur n'existe pas"
