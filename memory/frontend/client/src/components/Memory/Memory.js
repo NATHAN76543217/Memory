@@ -13,6 +13,7 @@ import API from "../../utils/API.js"
 //DONE ajouter redirection d'user si arrive sur page log ou signin vers le menu
 //DONE add time elapsed to end page
 //TODO clean log info in memory page
+//TODO handle manually go to /game and then return to menu
 //random shuffle tab
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;

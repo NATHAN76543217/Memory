@@ -8,6 +8,7 @@ import Login from "./components/Account/Login/Login.js";
 import Signup from "./components/Account/Signup/Signup.js";
 import notFound from './components/Error/404.js';
 import { PrivateRoute } from "./routes/PrivateRoute.js";
+import { AccountRoute } from "./routes/AccountRoute";
 import Header from './components/Header/Header.js';
 import API from "./utils/API.js";
 
@@ -34,12 +35,8 @@ class App extends Component {
 				<Header logged={this.state.logged}/>
 				<div className="App-content">
 					<Switch>
-						<Route exact path="/" render={()=> {return (this.state.logged ? 
-							<Redirect to={{ pathname: '/menu'}}/>
-							: <Login/>)}} />
-						<Route exact path="/signup" render={()=> {return (this.state.logged ? 
-							<Redirect to={{ pathname: '/menu'}}/>
-							: <Signup/>)}} />
+						<AccountRoute exact isAuth={this.state.logged} path="/" component={Login}/>
+						<AccountRoute exact isAuth={this.state.logged} path="/signup" component={Signup}/>
 						<PrivateRoute isAuth={this.state.logged} path="/menu" component={Menu} />
 						<PrivateRoute isAuth={this.state.logged} path="/game" component={Memory} />
 						<PrivateRoute isAuth={this.state.logged} path="/endgame" component={End} />
