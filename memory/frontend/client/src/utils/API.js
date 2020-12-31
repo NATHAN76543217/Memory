@@ -68,21 +68,17 @@ function getUserInfo() {
 	}
 	return null;
 }
-function looseTheGame()
-{
-	return axios.post(`${burl}/loose`, {}, {headers: headers});
-}
-
 function sendScore(nb_card, result, time_elapsed)
 {
 	localStorage.setItem("last", result);
 	console.log("set result to:" + result);
-	window.location = "/endgame"
-	return axios.put(`${burl}/result`, {token: this.getToken(), result: result, score: time_elapsed, nb_card: nb_card}, {headers: headers}).catch(error => console.error(error))
+	return axios.put(`${burl}/result`, {token: this.getToken(), result: result, score: time_elapsed, nb_card: nb_card}, {headers: headers})
+	.then(() => window.location = "/endgame" )	
+	.catch(error => console.error(error))
 }
 function getScores(scope, nb_card)
 {
-	// FIXME this.isAuth haven't any sense, may replace by this.isAuth()  
+	// FIXME this.isAuth haven't any sense, may be breplace by this.isAuth()  
 	if (this.isAuth){
 		const token = this.getToken();
 		return axios.get(`${burl}/scores`, {headers: headers, params: {token: token, nb_card: nb_card}})
@@ -105,7 +101,6 @@ const API = {
 	getToken,
 	updateToken,
 	getUserInfo,
-	looseTheGame,
 	sendScore,
 	getScores
 }

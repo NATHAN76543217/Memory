@@ -15,9 +15,11 @@ function token_valid(token)
 {
 	if (token == null)
 		return false;
-	const {expire} = jwt.decode(token, config.secret);
-	if (Date.now() >= expire)
-		return false;
+	try{
+		const {expire} = jwt.decode(token, config.secret);
+		if (Date.now() >= expire)
+			return false;
+	}catch(error) {return false};
 	return true;
 
 }

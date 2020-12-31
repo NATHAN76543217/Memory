@@ -5,7 +5,7 @@ export const PrivateRoute = ({isAuth: logged, component: Component, ...rest }) =
 	<Route
 		{...rest}
 		render={(props) => {
-			if (logged !== true) {
+			if (logged === false) {
 				console.log("Not logged");
 				return <Redirect to="/" />;
 			} else {

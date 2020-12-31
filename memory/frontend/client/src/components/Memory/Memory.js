@@ -12,7 +12,7 @@ import API from "../../utils/API.js"
 //DONE verifier les changement de durée de validité du token
 //DONE ajouter redirection d'user si arrive sur page log ou signin vers le menu
 //DONE add time elapsed to end page
-
+//TODO clean log info in memory page
 //random shuffle tab
 function shuffle(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;

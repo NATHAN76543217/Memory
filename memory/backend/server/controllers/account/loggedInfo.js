@@ -54,10 +54,10 @@ function result(req, res)
 			user.save(function(err){
 				if(err){
 					 console.error(err);
-					 return;
+					 throw (error);
 			}});
 			console.log("RESULT-- " + user.name + " : " + result);
-			return res.status(200);
+			return res.status(200).json({msg: "sucess"});
 		});
 	} catch (error) {
 	return res.status(500).json({"try exept": error });}
